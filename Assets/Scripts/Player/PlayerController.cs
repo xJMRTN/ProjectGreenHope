@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float playerHealth;
     bool eDown = false;
 
+
     public void UpdatePlayerHunger(float _value){
         playerHunger += _value;
     }

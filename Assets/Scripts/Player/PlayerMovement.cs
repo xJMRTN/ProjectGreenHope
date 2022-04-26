@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isDriving = false;
 
+    public bool Frozen = false;
+
     RaycastHit groundHit;
 
     Vector4 movementValues;
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update(){
+        if(Frozen) return;
         if(isDriving) return;
         isGrounded = isPlayerOnGround();
         moveDirection = GetPlayerInput();

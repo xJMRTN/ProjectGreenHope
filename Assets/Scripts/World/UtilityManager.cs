@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public sealed class UtilityManager : MonoBehaviour
 {
     [SerializeField] Transform Player;
+    [SerializeField] PlayerMovement PlayerMovement;
     [SerializeField] Camera _camera;
     [SerializeField] float PlayerReach;
     public RawImage blackBox;
@@ -81,5 +83,13 @@ public sealed class UtilityManager : MonoBehaviour
         Color curColor = blackBox.color;
         curColor.a = 1f;
         blackBox.color = curColor;
+    }
+
+    public void FreezePlayer(bool state){
+        PlayerMovement.Frozen = state;
+    }
+
+    public void ChangeScene(){
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 }
