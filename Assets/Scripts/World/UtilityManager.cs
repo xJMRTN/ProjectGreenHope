@@ -31,17 +31,22 @@ public sealed class UtilityManager : MonoBehaviour
         get{return instance;}   
     }
 
-    public bool isPlayerCloseEnough(Transform _object){
-        return (Vector3.Distance(Player.position, _object.position) <= PlayerReach);
+    public bool isPlayerCloseEnough(Transform _object){        
+        float temp = Vector3.Distance(Player.position, _object.position);
+        Debug.Log("Distance: " + temp);
+        return (temp <= PlayerReach);
     }
 
     public void RaycastFromPlayer(){
         RaycastHit hit = new RaycastHit();
-        if(Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out hit)){
+        if(Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)){      
+            Debug.Log("Hit: " + hit.transform.name);  
             if(isPlayerCloseEnough(hit.transform)){
                 Debug.Log("Hit: " + hit.transform.name);
                 hit.transform.gameObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
             }
+        }else{
+            Debug.DrawRay(_camera.transform.position, _camera.transform.forward * 10, Color.blue);
         }
     }
 
@@ -49,7 +54,6 @@ public sealed class UtilityManager : MonoBehaviour
         RaycastHit hit = new RaycastHit();
         if(Physics.Raycast(startPos, -Vector3.up, out hit)){
             if(hit.transform.tag == "Ground"){
-                Debug.Log("Top Position: " + startPos + "... Hit position: " + hit.point);
                 return hit.point;
             }
         }
